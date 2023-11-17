@@ -14,7 +14,7 @@ contract dNFT is ERC721 {
     event newMinterAdded(address indexed newMinter);
     event minterRemoved(address indexed minter);
 
-    uint256 private _tokenIdCounter;
+    uint256 private _tokenIdCounter = 0;
 
     modifier onlyOwner(){
         require(msg.sender == s_owner, "You are not the owner");
@@ -39,13 +39,13 @@ contract dNFT is ERC721 {
     }
 
     function safeMint(address to)
-    external
+    public
     ownerOrMinter()
     {
 
         uint256 tokenId = _tokenIdCounter;
+        _mint(to, tokenId);
         _tokenIdCounter += 1;
-        _safeMint(to, tokenId);
 
     }
 
@@ -107,7 +107,7 @@ contract dNFT is ERC721 {
  
     }
 
-    //The following functions are overrides
+    // The following functions are overrides
 
     function _update(address to, uint256 tokenId, address zero)
     internal
@@ -116,13 +116,20 @@ contract dNFT is ERC721 {
     returns(address)
     {
 
-        address _from = ownerOf(tokenId);
+        if(_exists(tokenId)){
 
-        require(to != address(0), "This NFT can't be burnt");
-        require(_from == address(0), "This NFT is non-transferable");
-        super._update(to, tokenId, zero);
+        revert("Non Transferable and Non Burnable NFT");
 
-        return _from;
+        }
+        else {
+
+            super._update(to, tokenId, zero);
+
+
+        }
+
+
+        
 
     }
 
@@ -143,7 +150,7 @@ contract dNFT is ERC721 {
     view
     returns(bool){
 
-        return ownerOf(_tokenId) != address(0);
+        return (_tokenId <  _tokenIdCounter);
     }
 
     function supportsInterface(bytes4 interfaceId)
