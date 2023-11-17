@@ -116,17 +116,8 @@ contract dNFT is ERC721 {
     returns(address)
     {
 
-        if(_exists(tokenId)){
-
-        revert("Non Transferable and Non Burnable NFT");
-
-        }
-        else {
-
-            super._update(to, tokenId, zero);
-
-
-        }
+        require(!_exists(tokenId), "This NFT is Non-transferable and Non-burnable");
+        super._update(to, tokenId, zero);
 
 
         
