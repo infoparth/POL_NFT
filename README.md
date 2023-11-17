@@ -1,13 +1,10 @@
-# Sample Hardhat Project
+# Proof of Learn NFT
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+This project contains the implementation of Proof of Learn NFT, which is non-transferable and non-destructable.
+The Project is deployed on the Shardeum Sphinx1.x blockchain, and the address for the project is 
 
-Try running some of the following tasks:
+```
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
+0x4E46DD8a4Fc60cA0F93bF34b31c85126EDeFbd75
+
 ```
